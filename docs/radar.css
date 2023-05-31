@@ -17,3 +17,19 @@ td {
   vertical-align: top;
   padding-right: 60px;
 }
+#title-container {
+  display: flex;
+  align-items: center; /* to align items vertically center */
+  justify-content: flex-start; /* to align items horizontally at start */
+  padding: 10px;
+  background-color: white;
+  border-bottom: 1px solid black;
+}
+#title-container img {
+  height: 60px;
+  width: auto;
+  margin-right: 10px;
+}
+#title-container h1 {
+  margin: 0;
+}

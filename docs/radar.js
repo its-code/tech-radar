@@ -1,25 +1,3 @@
-// The MIT License (MIT)
-
-// Copyright (c) 2017 Zalando SE
-
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-
 
 function radar_visualization(config) {
 
@@ -53,9 +31,6 @@ function radar_visualization(config) {
     { radius: 310 },
     { radius: 400 }
   ];
-
-  const title_offset =
-    { x: -675, y: -420 };
 
   const footer_offset =
     { x: -675, y: 420 };
@@ -270,23 +245,6 @@ function radar_visualization(config) {
   // draw title and legend (only in print layout)
   if (config.print_layout) {
 
-    // title
-    radar.append("text")
-      .attr("transform", translate(title_offset.x, title_offset.y))
-      .text(config.title)
-      .style("font-family", "Arial, Helvetica")
-      .style("font-size", "30")
-      .style("font-weight", "bold")
-
-    // date
-    radar
-      .append("text")
-      .attr("transform", translate(title_offset.x, title_offset.y + 20))
-      .text(config.date || "")
-      .style("font-family", "Arial, Helvetica")
-      .style("font-size", "14")
-      .style("fill", "#999")
-
     // footer
     radar.append("text")
       .attr("transform", translate(footer_offset.x, footer_offset.y))
@@ -298,15 +256,27 @@ function radar_visualization(config) {
     // legend
     var legend = radar.append("g");
     for (var quadrant = 0; quadrant < 4; quadrant++) {
+      // quadrant title
       legend.append("text")
         .attr("transform", translate(
           legend_offset[quadrant].x,
-          legend_offset[quadrant].y - 45
+          legend_offset[quadrant].y - 55
         ))
         .text(config.quadrants[quadrant].name)
         .style("font-family", "Arial, Helvetica")
         .style("font-size", "18px")
         .style("font-weight", "bold");
+
+      // date
+      legend.append("text")
+        .attr("transform", translate(
+          legend_offset[quadrant].x,
+          legend_offset[quadrant].y - 35
+        ))
+        .text(config.quadrants[quadrant].date || "")
+        .style("font-family", "Arial, Helvetica")
+        .style("font-size", "14")
+        .style("fill", "#999");
       for (var ring = 0; ring < 4; ring++) {
         legend.append("text")
           .attr("transform", legend_transform(quadrant, ring))
@@ -445,9 +415,11 @@ function radar_visualization(config) {
         .text(blip_text)
         .attr("y", 3)
         .attr("text-anchor", "middle")
-        .style("fill", "#fff")
-        .style("font-family", "Arial, Helvetica")
-        .style("font-size", function(d) { return blip_text.length > 2 ? "8px" : "9px"; })
+        .style("fill", "#333")
+        .style("font-family", "'Open Sans', Arial, Helvetica")
+        .style("font-size", function(d) { return blip_text.length > 2 ? "10px" : "12px"; })
+        .style("font-weight", "bold")
+        .style("text-shadow", "1px 1px 2px rgba(255, 255, 255, 0.7)")
         .style("pointer-events", "none")
         .style("user-select", "none");
     }
